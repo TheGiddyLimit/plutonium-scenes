@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 import {Command, Option} from "commander";
 import {readJsonSync, writeJsonSync} from "5etools-utils/lib/UtilFs.js";
 import {Um} from "5etools-utils";
@@ -72,6 +73,7 @@ class WallDataOptimizer {
 			"sound": null,
 			"attenuation": false,
 		},
+		"doorSound": null,
 		"flags": {},
 	};
 
@@ -114,11 +116,16 @@ class FoundryDataConverter {
 	static run () {
 		const params = this._getCliParams();
 
-		const json = readJsonSync(params.file);
+		const jsons = params.file
+			? [readJsonSync(params.file)]
+			: fs.readdirSync(params.dir)
+				.filter(fname => fname.toLowerCase().endsWith(".json"))
+				.map(fname => readJsonSync(path.join(params.dir, fname)));
 
-		const mapEntry = this._getMapEntry({scene: json, source: params.source});
+		const mapEntries = jsons
+			.map(json => this._getMapEntry({scene: json, source: params.source}));
 
-		this._writeMapEntries({mapEntries: [mapEntry], type: params.type});
+		this._writeMapEntries({mapEntries: mapEntries, type: params.type});
 	}
 
 	static _getSceneLogName (scene) {
@@ -135,9 +142,9 @@ class FoundryDataConverter {
 	}
 
 	static _getCliParams () {
-		// TODO(Future) allow directory as input
 		const program = new Command()
-			.requiredOption("--file <file>", `Path to exported Foundry "fvtt-Scene-*.json" file.`)
+			.option("--file <file>", `Path to exported Foundry "fvtt-Scene-*.json" file.`)
+			.option("--dir <dir>", `Path to a directory containing exported Foundry "fvtt-Scene-*.json" file.`)
 			.addOption(
 				new Option("--type <type>")
 					.choices(["adventure", "book"])
@@ -147,7 +154,13 @@ class FoundryDataConverter {
 		;
 
 		program.parse(process.argv);
-		return program.opts();
+
+		const params = program.opts();
+
+		const cntInputs = [params.file, params.dir].filter(Boolean).length;
+		if (cntInputs !== 1) program.error(`Exactly one of "file" and "dir" must be specified!`);
+
+		return params;
 	}
 
 	static _getMapEntry ({scene, source = null}) {
