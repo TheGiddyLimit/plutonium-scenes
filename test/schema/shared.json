@@ -1,0 +1,67 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "shared.json",
+	"version": "1.0.0",
+
+	"$defs": {
+		"wall": {
+			"type": "object",
+
+			"properties": {
+				"c": {
+					"type": "array",
+					"items": {"type": "number"},
+					"minItems": 4,
+					"maxItems": 4
+				},
+
+				"light": {"type": "number"},
+				"move": {"type": "number"},
+				"sight": {"type": "number"},
+				"sound": {"type": "number"},
+				"dir": {"type": "number"},
+				"door": {"type": "number"},
+				"ds": {"type": "number"},
+
+				"threshold": {
+					"type": "object",
+
+					"properties": {
+						"light": {"const": null},
+						"sight": {"const": null},
+						"sound": {"const": null},
+						"attenuation": {"type": "boolean"}
+					}
+				}
+			},
+
+			"additionalProperties": false
+		},
+
+		"map": {
+			"type": "object",
+
+			"properties": {
+				"name": {"type": "string"},
+				"source": {"type": "string"},
+				"walls": {
+					"type": "array",
+					"items": {"$ref": "#/$defs/wall"},
+					"minItems": 1,
+					"uniqueItems": true
+				}
+			},
+
+			"required": ["name", "source"],
+			"minProperties": 3,
+			"additionalProperties": false
+		},
+
+		"mapArray": {
+			"type": "array",
+			"items": {"$ref": "#/$defs/map"},
+			"minItems": 1,
+			"uniqueItems": true
+		}
+	}
+}

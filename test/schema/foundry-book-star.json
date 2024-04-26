@@ -1,0 +1,14 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "foundry-book-star.json",
+	"version": "1.0.0",
+
+	"type": "object",
+
+	"properties": {
+		"map": {"$ref": "shared.json#/$defs/mapArray"}
+	},
+
+	"required": ["map"],
+	"additionalProperties": false
+}
