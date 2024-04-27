@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"$id": "shared.json",
-	"version": "1.0.0",
+	"version": "1.0.1",
 
 	"$defs": {
 		"wall": {
@@ -22,14 +22,15 @@
 				"dir": {"type": "number"},
 				"door": {"type": "number"},
 				"ds": {"type": "number"},
+				"doorSound": {"type": "string"},
 
 				"threshold": {
 					"type": "object",
 
 					"properties": {
-						"light": {"const": null},
-						"sight": {"const": null},
-						"sound": {"const": null},
+						"light": {"type": "number"},
+						"sight": {"type": "number"},
+						"sound": {"type": "number"},
 						"attenuation": {"type": "boolean"}
 					}
 				}
