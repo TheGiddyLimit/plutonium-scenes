@@ -129,7 +129,7 @@ class FoundryDataConverter {
 	}
 
 	static _getSceneLogName (scene) {
-		return `"${scene?.name || "(Unnamed)"}" (${scene?._id || "(Unknown ID)"})`;
+		return `"${scene?.name || "(Unnamed)"}" (${scene?._id || "Unknown ID"})`;
 	}
 
 	static _getSortedMapEntries (mapEntries) {
