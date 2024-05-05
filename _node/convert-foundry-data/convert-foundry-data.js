@@ -181,6 +181,10 @@ class FoundryDataConverter {
 	}
 
 	static _writeMapEntries ({mapEntries, type}) {
+		let isIndexUpdate = false;
+		const fpathIndex = `data/foundry-index.json`;
+		const indexJson = readJsonSync(fpathIndex);
+
 		Object.entries(
 			mapEntries
 				.reduce(
@@ -192,7 +196,8 @@ class FoundryDataConverter {
 				),
 		)
 			.forEach(([source, mapEntriesBySource]) => {
-				const fpath = `data/foundry-${type}-${source.toLowerCase()}.json`;
+				const fname = `foundry-${type}-${source.toLowerCase()}.json`;
+				const fpath = `data/${fname}`;
 
 				if (!fs.existsSync(fpath)) {
 					writeJsonSync(fpath, {map: this._getSortedMapEntries(mapEntriesBySource)});
@@ -218,7 +223,21 @@ class FoundryDataConverter {
 				writeJsonSync(fpath, json);
 
 				Um.info(this._LOG_TAG_WRITE, `Wrote ${source} map entries to "${fpath}" (${mapEntriesBySource.length - cntUpdated} new; ${cntUpdated} update${cntUpdated === 1 ? "" : "s"})`);
+
+				if (indexJson[source]) return;
+
+				isIndexUpdate = true;
+				indexJson[source] = fname;
 			});
+
+		if (!isIndexUpdate) return;
+
+		const indexJsonOut = {};
+		Object.entries(indexJson)
+			.sort(([a], [b]) => a.localeCompare(b, {sensitivity: "base"}))
+			.forEach(([source, fname]) => indexJsonOut[source] = fname);
+		writeJsonSync(fpathIndex, indexJsonOut);
+		Um.info(this._LOG_TAG_WRITE, `Updated index`);
 	}
 }
 
