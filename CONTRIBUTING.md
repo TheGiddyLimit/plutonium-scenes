@@ -13,4 +13,4 @@ See the [GitHub project](https://github.com/users/TheGiddyLimit/projects/1) for 
 
 ## Getting Help
 
-For any questions, ask in the [5etools Discord Server](https://discord.gg/5etools) `#plutonium` channel.
+For any questions, ask in the [5etools Discord Server](https://discord.gg/5etools) `#plutonium-general` channel.
