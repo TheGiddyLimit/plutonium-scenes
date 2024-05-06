@@ -10,10 +10,7 @@ npm i
 
 ## Contributing
 
-- Import a scene using Plutonium's Map Importer
-- Add/edit walls
-- Export the scene (Right-click -> `Export Data` in Foundry)
-- `npm run convert -- --file "path/to/fvtt-Scene-*.json" --type [adventure|book]`
+See the [CONTRIBUTING.md](CONTRIBUTING.md) documentation.
 
 ## Local Testing
 
