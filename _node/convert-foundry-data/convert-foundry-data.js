@@ -30,6 +30,16 @@ class MiscUtil {
 		return val;
 	}
 
+	static deleteDot (object, dotPath) {
+		const path = dotPath.split(".");
+		if (object == null) return object;
+		for (let i = 0; i < path.length - 1; ++i) {
+			object = object[path[i]];
+			if (object == null) return object;
+		}
+		return delete object[path.at(-1)];
+	}
+
 	static getKeyPaths (obj) {
 		const out = [];
 
@@ -58,55 +68,116 @@ class MiscUtil {
 	}
 }
 
-class WallDataOptimizer {
-	static _DEFAULT_WALL = {
-		"light": 20,
-		"move": 20,
-		"sight": 20,
-		"sound": 20,
-		"dir": 0,
-		"door": 0,
-		"ds": 0,
-		"threshold": {
-			"light": null,
-			"sight": null,
-			"sound": null,
-			"attenuation": false,
-		},
-		"doorSound": null,
-		"flags": {},
-	};
+/** @abstract */
+class EntityDataOptimizer {
+	/** @abstract */
+	static get _DEFAULT_ENTITY () { throw new Error("Unimplemented!"); }
 
-	static getMinimalWall (wall) {
-		wall = {...wall};
+	/** @abstract */
+	static get _REQUIRED_KEY_PATHS () { throw new Error("Unimplemented!"); }
 
-		const out = {
-			c: wall.c,
-		};
+	static getOptimizedEntity (entity) {
+		entity = {...entity};
 
-		["c", "_id"].forEach(prop => delete wall[prop]);
+		const out = {};
+		this._REQUIRED_KEY_PATHS
+			.forEach(keyPath => MiscUtil.setDot(out, keyPath, MiscUtil.getDot(entity, keyPath)));
 
-		const keyPathsDefault = MiscUtil.getKeyPaths(this._DEFAULT_WALL);
-		const keyPathsWall = MiscUtil.getKeyPaths(wall);
+		[
+			"_id",
+			...this._REQUIRED_KEY_PATHS,
+		].forEach(keyPath => MiscUtil.deleteDot(entity, keyPath));
 
-		const keyPathsUnknown = keyPathsWall.filter(keyPath => !keyPathsDefault.includes(keyPath));
+		const keyPathsDefault = MiscUtil.getKeyPaths(this._DEFAULT_ENTITY);
+		const keyPathsEntity = MiscUtil.getKeyPaths(entity);
+
+		const keyPathsUnknown = keyPathsEntity.filter(keyPath => !keyPathsDefault.includes(keyPath));
 
 		keyPathsDefault
 			.forEach(keyPath => {
-				const valWall = MiscUtil.getDot(wall, keyPath);
+				const valEntity = MiscUtil.getDot(entity, keyPath);
 
-				if (valWall == null) return;
+				if (valEntity == null) return;
 
-				const valDefault = MiscUtil.getDot(this._DEFAULT_WALL, keyPath);
-				if (valWall === valDefault) return;
+				const valDefault = MiscUtil.getDot(this._DEFAULT_ENTITY, keyPath);
+				if (valEntity === valDefault) return;
 
-				MiscUtil.setDot(out, keyPath, valWall);
+				MiscUtil.setDot(out, keyPath, valEntity);
 			});
 
 		// TODO(Future) more useful handling
-		if (keyPathsUnknown.length) console.warn(`Unhandled key paths: ${keyPathsUnknown.map(keyPath => `"${keyPath}"`).join("; ")}`);
+		if (keyPathsUnknown.length) console.warn(`Unhandled key paths in ${this.name}: ${keyPathsUnknown.map(keyPath => `"${keyPath}"`).join("; ")}`);
 
 		return out;
+	}
+}
+
+class WallDataOptimizer extends EntityDataOptimizer {
+	static get _DEFAULT_ENTITY () {
+		return {
+			"light": 20,
+			"move": 20,
+			"sight": 20,
+			"sound": 20,
+			"dir": 0,
+			"door": 0,
+			"ds": 0,
+			"threshold": {
+				"light": null,
+				"sight": null,
+				"sound": null,
+				"attenuation": false,
+			},
+			"doorSound": null,
+			"flags": {},
+		};
+	}
+
+	static get _REQUIRED_KEY_PATHS () {
+		return [
+			"c",
+		];
+	}
+}
+
+class LightDataOptimizer extends EntityDataOptimizer {
+	static get _DEFAULT_ENTITY () {
+		return {
+			"rotation": 0,
+			"walls": true,
+			"vision": false,
+			"config": {
+				"alpha": 0.5,
+				"angle": 360,
+				"coloration": 1,
+				"attenuation": 0.5,
+				"luminosity": 0.5,
+				"saturation": 0,
+				"contrast": 0,
+				"shadows": 0,
+				"animation": {
+					"type": null,
+					"speed": 5,
+					"intensity": 5,
+					"reverse": false,
+				},
+				"darkness": {
+					"min": 0,
+					"max": 1,
+				},
+			},
+			"hidden": false,
+			"flags": {},
+		};
+	}
+
+	static get _REQUIRED_KEY_PATHS () {
+		return [
+			"x",
+			"y",
+			"config.bright",
+			"config.dim",
+		];
 	}
 }
 
@@ -123,7 +194,7 @@ class FoundryDataConverter {
 				.map(fname => readJsonSync(path.join(params.dir, fname)));
 
 		const mapEntries = jsons
-			.map(json => this._getMapEntry({scene: json, source: params.source}));
+			.map(json => this._getMapEntry({scene: json, source: params.source, isLights: params.lights}));
 
 		this._writeMapEntries({mapEntries: mapEntries, type: params.type});
 	}
@@ -151,6 +222,7 @@ class FoundryDataConverter {
 					.makeOptionMandatory(),
 			)
 			.option("--source <file>", `5etools source (e.g. "LMoP"). This may be omitted when using a Plutonium-imported scene.`)
+			.option("--lights", `Additionally convert lights data.`)
 		;
 
 		program.parse(process.argv);
@@ -163,7 +235,7 @@ class FoundryDataConverter {
 		return params;
 	}
 
-	static _getMapEntry ({scene, source = null}) {
+	static _getMapEntry ({scene, source = null, isLights = false}) {
 		if (!scene?.name) throw new Error(`Scene ${this._getSceneLogName(scene)} had no name!`);
 
 		source ||= scene.flags?.["plutonium"]?.["source"];
@@ -172,12 +244,19 @@ class FoundryDataConverter {
 		const walls = scene.walls;
 		if (!walls?.length) throw new Error(`Scene ${this._getSceneLogName(scene)} had no walls!`);
 
-		return {
+		const out = {
 			name: scene.name,
 			source,
 			walls: walls
-				.map(wall => WallDataOptimizer.getMinimalWall(wall)),
+				.map(wall => WallDataOptimizer.getOptimizedEntity(wall)),
 		};
+
+		if (isLights && scene.lights?.length) {
+			out.lights = scene.lights
+				.map(light => LightDataOptimizer.getOptimizedEntity(light));
+		}
+
+		return out;
 	}
 
 	static _writeMapEntries ({mapEntries, type}) {
