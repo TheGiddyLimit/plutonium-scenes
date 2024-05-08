@@ -6,7 +6,13 @@
 	"type": "object",
 
 	"properties": {
-		"$schema": {"$ref": "shared.json#/$defs/$schema"},
+		"$schema": {
+			"type": "string",
+			"enum": [
+				"../test/schema/foundry-adventure-star.json",
+				"https://raw.githubusercontent.com/TheGiddyLimit/plutonium-scenes/main/test/schema/foundry-adventure-star.json"
+			]
+		},
 		"map": {"$ref": "shared.json#/$defs/mapArray"}
 	},
 

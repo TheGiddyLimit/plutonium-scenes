@@ -1,17 +1,9 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"$id": "shared.json",
-	"version": "1.1.1",
+	"version": "1.1.0",
 
 	"$defs": {
-		"$schema": {
-			"type": "string",
-			"examples": [
-				"../test/schema/foundry-adventure-star.json",
-				"../test/schema/foundry-book-star.json"
-			]
-		},
-
 		"wall": {
 			"type": "object",
 
