@@ -7,7 +7,7 @@
 	"scripts": {
 		"test": "npm run test:js && npm run test:data",
 		"lint": "npm run lint:js",
-		"test:js": "eslint .eslintrc.cjs _node --ext .js,.cjs,.mjs",
+		"test:js": "eslint .eslintrc.cjs _node macro --ext .js,.cjs,.mjs",
 		"lint:js": "npm run test:js -- --fix",
 		"test:data": "node test/test-json.js",
 		"convert": "node _node/convert-foundry-data/convert-foundry-data.js",
