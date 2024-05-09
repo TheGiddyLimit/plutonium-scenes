@@ -62,8 +62,7 @@
 			displayNullAs: "Select Scene",
 		};
 
-		const $selSceneSource = ComponentUiUtil.$getSelEnum(comp, "idSceneSource", selOpts)
-			.addClass("mb-2");
+		const $selSceneSource = ComponentUiUtil.$getSelEnum(comp, "idSceneSource", selOpts);
 
 		const $selSceneTarget = ComponentUiUtil.$getSelEnum(comp, "idSceneTarget", selOpts);
 
@@ -92,8 +91,8 @@
 		$$($modalInner)`
 		<div class="ve-flex-v-center w-100">
 			<div class="ve-flex-col mr-1 w-100 min-w-0">
-				${$selSceneSource}
-				${$selSceneTarget}
+				<label class="ve-flex-v-center mb-2"><span class="mr-2 w-80p text-right bold">Source:</span>${$selSceneSource}</label>
+				<label class="ve-flex-v-center"><span class="mr-2 w-80p text-right bold">Target:</span>${$selSceneTarget}</label>
 			</div>
 			
 			<div class="ve-flex-v-center mr-2">
