@@ -235,20 +235,32 @@ class FoundryDataConverter {
 		return params;
 	}
 
+	static _getMapEntry_walls ({scene}) {
+		const seen = new Set();
+
+		return scene.walls
+			.map(wall => WallDataOptimizer.getOptimizedEntity(wall))
+			.filter(wall => {
+				// Use coordinates as "id", as we do not expect walls with duplicate coords
+				const id = wall.c.join("__");
+				if (seen.has(id)) return false;
+				seen.add(id);
+				return true;
+			});
+	}
+
 	static _getMapEntry ({scene, source = null, isLights = false}) {
 		if (!scene?.name) throw new Error(`Scene ${this._getSceneLogName(scene)} had no name!`);
 
 		source ||= scene.flags?.["plutonium"]?.["source"];
 		if (!source) throw new Error(`Source was neither provided as an argument, nor in scene flags for scene ${this._getSceneLogName(scene)}!`);
 
-		const walls = scene.walls;
-		if (!walls?.length) throw new Error(`Scene ${this._getSceneLogName(scene)} had no walls!`);
+		if (!scene.walls?.length) throw new Error(`Scene ${this._getSceneLogName(scene)} had no walls!`);
 
 		const out = {
 			name: scene.name,
 			source,
-			walls: walls
-				.map(wall => WallDataOptimizer.getOptimizedEntity(wall)),
+			walls: this._getMapEntry_walls({scene}),
 		};
 
 		if (isLights && scene.lights?.length) {
