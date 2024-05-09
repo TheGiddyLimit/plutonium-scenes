@@ -146,7 +146,8 @@
 	const scaleScenePlut = await pGetScale(sceneTarget);
 	const scaleSceneOther = await pGetScale(sceneSource);
 
-	const scaleFactorUser = await InputUiUtil.pGetUserNumber({title: "Enter Scale Factor"});
+	const scaleFactorUser = await InputUiUtil.pGetUserNumber({title: "Enter Scale Factor", default: 1});
+	if (scaleFactorUser == null) return;
 
 	const scaleFactor = scaleFactorUser * scaleScenePlut / scaleSceneOther;
 
