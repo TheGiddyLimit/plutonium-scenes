@@ -154,6 +154,7 @@ class WallDataOptimizer extends EntityDataOptimizer {
 		"flags.monks-active-tiles",
 		"flags.smartdoors",
 		"flags.wall-height",
+		"flags.wallHeight",
 	];
 }
 
