@@ -70,25 +70,26 @@ class MiscUtil {
 
 /** @abstract */
 class EntityDataOptimizer {
-	/** @abstract */
-	static get _DEFAULT_ENTITY () { throw new Error("Unimplemented!"); }
+	_defaultEntity;
+	_requiredKeyPaths;
+	_ignoredKeyPaths = [];
 
-	/** @abstract */
-	static get _REQUIRED_KEY_PATHS () { throw new Error("Unimplemented!"); }
+	_keyPathsUnknown = new Set();
 
-	static getOptimizedEntity (entity) {
+	getOptimizedEntity (entity) {
 		entity = {...entity};
 
 		const out = {};
-		this._REQUIRED_KEY_PATHS
+		this._requiredKeyPaths
 			.forEach(keyPath => MiscUtil.setDot(out, keyPath, MiscUtil.getDot(entity, keyPath)));
 
 		[
 			"_id",
-			...this._REQUIRED_KEY_PATHS,
+			...this._requiredKeyPaths,
+			...this._ignoredKeyPaths,
 		].forEach(keyPath => MiscUtil.deleteDot(entity, keyPath));
 
-		const keyPathsDefault = MiscUtil.getKeyPaths(this._DEFAULT_ENTITY);
+		const keyPathsDefault = MiscUtil.getKeyPaths(this._defaultEntity);
 		const keyPathsEntity = MiscUtil.getKeyPaths(entity);
 
 		const keyPathsUnknown = keyPathsEntity.filter(keyPath => !keyPathsDefault.includes(keyPath));
@@ -99,86 +100,98 @@ class EntityDataOptimizer {
 
 				if (valEntity == null) return;
 
-				const valDefault = MiscUtil.getDot(this._DEFAULT_ENTITY, keyPath);
+				const valDefault = MiscUtil.getDot(this._defaultEntity, keyPath);
 				if (valEntity === valDefault) return;
 
 				MiscUtil.setDot(out, keyPath, valEntity);
 			});
 
-		// TODO(Future) more useful handling
-		if (keyPathsUnknown.length) console.warn(`Unhandled key paths in ${this.name}: ${keyPathsUnknown.map(keyPath => `"${keyPath}"`).join("; ")}`);
+		if (keyPathsUnknown.length) {
+			keyPathsUnknown.map(keyPath => keyPath)
+				.forEach(keyPath => this._keyPathsUnknown.add(keyPath));
+		}
 
 		return out;
+	}
+
+	doLogWarnings () {
+		if (!this._keyPathsUnknown.size) return;
+
+		const keyPaths = Array.from(this._keyPathsUnknown)
+			.sort((a, b) => a.localeCompare(b, {sensitivity: "base"}))
+			.map(keyPath => `\t"${keyPath}"`)
+			.join("\n");
+
+		console.warn(`Unhandled key paths in ${this.constructor.name}:\n${keyPaths}`);
 	}
 }
 
 class WallDataOptimizer extends EntityDataOptimizer {
-	static get _DEFAULT_ENTITY () {
-		return {
-			"light": 20,
-			"move": 20,
-			"sight": 20,
-			"sound": 20,
-			"dir": 0,
-			"door": 0,
-			"ds": 0,
-			"threshold": {
-				"light": null,
-				"sight": null,
-				"sound": null,
-				"attenuation": false,
-			},
-			"doorSound": null,
-			"flags": {},
-		};
-	}
+	_defaultEntity = {
+		"light": 20,
+		"move": 20,
+		"sight": 20,
+		"sound": 20,
+		"dir": 0,
+		"door": 0,
+		"ds": 0,
+		"threshold": {
+			"light": null,
+			"sight": null,
+			"sound": null,
+			"attenuation": false,
+		},
+		"doorSound": null,
+		"flags": {},
+	};
 
-	static get _REQUIRED_KEY_PATHS () {
-		return [
-			"c",
-		];
-	}
+	_requiredKeyPaths = [
+		"c",
+	];
+
+	_ignoredKeyPaths = [
+		"flags.ambientdoors",
+		"flags.monks-active-tiles",
+		"flags.smartdoors",
+		"flags.wall-height",
+	];
 }
 
 class LightDataOptimizer extends EntityDataOptimizer {
-	static get _DEFAULT_ENTITY () {
-		return {
-			"rotation": 0,
-			"walls": true,
-			"vision": false,
-			"config": {
-				"alpha": 0.5,
-				"angle": 360,
-				"coloration": 1,
-				"attenuation": 0.5,
-				"luminosity": 0.5,
-				"saturation": 0,
-				"contrast": 0,
-				"shadows": 0,
-				"animation": {
-					"type": null,
-					"speed": 5,
-					"intensity": 5,
-					"reverse": false,
-				},
-				"darkness": {
-					"min": 0,
-					"max": 1,
-				},
+	_defaultEntity = {
+		"rotation": 0,
+		"walls": true,
+		"vision": false,
+		"config": {
+			"alpha": 0.5,
+			"angle": 360,
+			"coloration": 1,
+			"attenuation": 0.5,
+			"luminosity": 0.5,
+			"saturation": 0,
+			"contrast": 0,
+			"shadows": 0,
+			"animation": {
+				"type": null,
+				"speed": 5,
+				"intensity": 5,
+				"reverse": false,
 			},
-			"hidden": false,
-			"flags": {},
-		};
-	}
+			"darkness": {
+				"min": 0,
+				"max": 1,
+			},
+		},
+		"hidden": false,
+		"flags": {},
+	};
 
-	static get _REQUIRED_KEY_PATHS () {
-		return [
-			"x",
-			"y",
-			"config.bright",
-			"config.dim",
-		];
-	}
+	_requiredKeyPaths = [
+		"x",
+		"y",
+		"config.bright",
+		"config.dim",
+	];
 }
 
 class FoundryDataConverter {
@@ -187,6 +200,14 @@ class FoundryDataConverter {
 	static run () {
 		const params = this._getCliParams();
 
+		const wallDataOptimizer = new WallDataOptimizer();
+		const lightDataOptimizer = new LightDataOptimizer();
+
+		const dataOptimizers = [
+			wallDataOptimizer,
+			lightDataOptimizer,
+		];
+
 		const jsons = params.file
 			? [readJsonSync(params.file)]
 			: fs.readdirSync(params.dir)
@@ -194,9 +215,18 @@ class FoundryDataConverter {
 				.map(fname => readJsonSync(path.join(params.dir, fname)));
 
 		const mapEntries = jsons
-			.map(json => this._getMapEntry({scene: json, source: params.source, isLights: params.lights}));
+			.map(json => this._getMapEntry({
+				wallDataOptimizer,
+				lightDataOptimizer,
+				scene: json,
+				source: params.source,
+				isLights: params.lights,
+			}));
 
 		this._writeMapEntries({mapEntries: mapEntries, type: params.type});
+
+		dataOptimizers
+			.forEach(dataOptimizer => dataOptimizer.doLogWarnings());
 	}
 
 	static _getSceneLogName (scene) {
@@ -235,11 +265,11 @@ class FoundryDataConverter {
 		return params;
 	}
 
-	static _getMapEntry_walls ({scene}) {
+	static _getMapEntry_walls ({wallDataOptimizer, scene}) {
 		const seen = new Set();
 
 		return scene.walls
-			.map(wall => WallDataOptimizer.getOptimizedEntity(wall))
+			.map(wall => wallDataOptimizer.getOptimizedEntity(wall))
 			.filter(wall => {
 				// Use coordinates as "id", as we do not expect walls with duplicate coords
 				const id = wall.c.join("__");
@@ -249,7 +279,7 @@ class FoundryDataConverter {
 			});
 	}
 
-	static _getMapEntry ({scene, source = null, isLights = false}) {
+	static _getMapEntry ({wallDataOptimizer, lightDataOptimizer, scene, source = null, isLights = false}) {
 		if (!scene?.name) throw new Error(`Scene ${this._getSceneLogName(scene)} had no name!`);
 
 		source ||= scene.flags?.["plutonium"]?.["source"];
@@ -260,12 +290,12 @@ class FoundryDataConverter {
 		const out = {
 			name: scene.name,
 			source,
-			walls: this._getMapEntry_walls({scene}),
+			walls: this._getMapEntry_walls({wallDataOptimizer, scene}),
 		};
 
 		if (isLights && scene.lights?.length) {
 			out.lights = scene.lights
-				.map(light => LightDataOptimizer.getOptimizedEntity(light));
+				.map(light => lightDataOptimizer.getOptimizedEntity(light));
 		}
 
 		return out;
