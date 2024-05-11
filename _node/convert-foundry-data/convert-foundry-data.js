@@ -208,11 +208,11 @@ class FoundryDataConverter {
 			lightDataOptimizer,
 		];
 
-		const jsons = params.file
-			? [readJsonSync(params.file)]
-			: fs.readdirSync(params.dir)
-				.filter(fname => fname.toLowerCase().endsWith(".json"))
-				.map(fname => readJsonSync(path.join(params.dir, fname)));
+		const jsons = this._getJsons({
+			file: params.file,
+			dir: params.dir,
+			isRecursive: !!params.recurse,
+		});
 
 		const mapEntries = jsons
 			.map(json => this._getMapEntry({
@@ -227,6 +227,29 @@ class FoundryDataConverter {
 
 		dataOptimizers
 			.forEach(dataOptimizer => dataOptimizer.doLogWarnings());
+	}
+
+	static _isJsonFile (fname) {
+		return fname.toLowerCase().endsWith(".json");
+	}
+
+	static _getJsons ({file, dir, isRecursive}) {
+		if (file) return [readJsonSync(file)];
+
+		const dirList = fs.readdirSync(dir);
+
+		const jsons = dirList
+			.filter(this._isJsonFile.bind(this))
+			.map(fname => readJsonSync(path.join(dir, fname)));
+
+		if (!isRecursive) return jsons;
+
+		return [
+			...jsons,
+			...dirList
+				.filter(fname => fs.statSync(path.join(dir, fname)).isDirectory())
+				.flatMap(dirSub => this._getJsons({dir: path.join(dir, dirSub), isRecursive: true})),
+		];
 	}
 
 	static _getSceneLogName (scene) {
@@ -246,6 +269,7 @@ class FoundryDataConverter {
 		const program = new Command()
 			.option("--file <file>", `Path to exported Foundry "fvtt-Scene-*.json" file.`)
 			.option("--dir <dir>", `Path to a directory containing exported Foundry "fvtt-Scene-*.json" file.`)
+			.option("-R, --recurse", `If the directories should be recursively searched.`)
 			.addOption(
 				new Option("--type <type>")
 					.choices(["adventure", "book"])
