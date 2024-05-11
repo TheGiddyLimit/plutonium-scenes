@@ -1,5 +1,7 @@
 {
 	"CM": "foundry-adventure-cm.json",
+	"DC": "foundry-adventure-dc.json",
+	"DIP": "foundry-adventure-dip.json",
 	"GoS": "foundry-adventure-gos.json",
 	"HFStCM": "foundry-adventure-hfstcm.json",
 	"HotDQ": "foundry-adventure-hotdq.json",
@@ -7,6 +9,8 @@
 	"LMoP": "foundry-adventure-lmop.json",
 	"PaBTSO": "foundry-adventure-pabtso.json",
 	"RMBRE": "foundry-adventure-rmbre.json",
+	"SDW": "foundry-adventure-sdw.json",
+	"SLW": "foundry-adventure-slw.json",
 	"ToA": "foundry-adventure-toa.json",
 	"TTP": "foundry-adventure-ttp.json",
 	"WDH": "foundry-adventure-wdh.json"
