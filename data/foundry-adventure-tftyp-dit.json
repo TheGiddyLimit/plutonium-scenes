@@ -12749,8 +12749,7 @@
 					"sight": 0,
 					"sound": 0,
 					"door": 1,
-					"ds": 2,
-					"doorSound": ""
+					"ds": 2
 				},
 				{
 					"c": [
@@ -12763,8 +12762,7 @@
 					"sight": 0,
 					"sound": 0,
 					"door": 1,
-					"ds": 2,
-					"doorSound": ""
+					"ds": 2
 				},
 				{
 					"c": [
@@ -12777,8 +12775,7 @@
 					"sight": 0,
 					"sound": 0,
 					"door": 1,
-					"ds": 2,
-					"doorSound": ""
+					"ds": 2
 				},
 				{
 					"c": [
@@ -12791,8 +12788,7 @@
 					"sight": 0,
 					"sound": 0,
 					"door": 1,
-					"ds": 2,
-					"doorSound": ""
+					"ds": 2
 				},
 				{
 					"c": [
@@ -12805,8 +12801,7 @@
 					"sight": 0,
 					"sound": 0,
 					"door": 1,
-					"ds": 2,
-					"doorSound": ""
+					"ds": 2
 				},
 				{
 					"c": [
@@ -12819,8 +12814,7 @@
 					"sight": 0,
 					"sound": 0,
 					"door": 1,
-					"ds": 2,
-					"doorSound": ""
+					"ds": 2
 				},
 				{
 					"c": [
@@ -12833,8 +12827,7 @@
 					"sight": 0,
 					"sound": 0,
 					"door": 1,
-					"ds": 2,
-					"doorSound": ""
+					"ds": 2
 				},
 				{
 					"c": [
@@ -12847,8 +12840,7 @@
 					"sight": 0,
 					"sound": 0,
 					"door": 1,
-					"ds": 2,
-					"doorSound": ""
+					"ds": 2
 				}
 			]
 		},
@@ -15548,8 +15540,7 @@
 						1202,
 						1045
 					],
-					"door": 2,
-					"doorSound": ""
+					"door": 2
 				},
 				{
 					"c": [
@@ -15567,8 +15558,7 @@
 						1804,
 						1045
 					],
-					"door": 2,
-					"doorSound": ""
+					"door": 2
 				},
 				{
 					"c": [
