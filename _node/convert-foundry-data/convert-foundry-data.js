@@ -367,7 +367,7 @@ class FoundryDataConverter {
 					],
 				);
 
-				writeJsonSync(fpath, json);
+				writeJsonSync(fpath, json, {isClean: true});
 
 				Um.info(this._LOG_TAG_WRITE, `Wrote ${source} map entries to "${fpath}" (${mapEntriesBySource.length - cntUpdated} new; ${cntUpdated} update${cntUpdated === 1 ? "" : "s"})`);
 
@@ -383,7 +383,7 @@ class FoundryDataConverter {
 		Object.entries(indexJson)
 			.sort(([a], [b]) => a.localeCompare(b, {sensitivity: "base"}))
 			.forEach(([source, fname]) => indexJsonOut[source] = fname);
-		writeJsonSync(fpathIndex, indexJsonOut);
+		writeJsonSync(fpathIndex, indexJsonOut, {isClean: true});
 		Um.info(this._LOG_TAG_WRITE, `Updated index`);
 	}
 }
