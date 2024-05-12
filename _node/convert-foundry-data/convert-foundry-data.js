@@ -99,6 +99,7 @@ class EntityDataOptimizer {
 				const valEntity = MiscUtil.getDot(entity, keyPath);
 
 				if (valEntity == null) return;
+				if (typeof valEntity === "string" && !valEntity) return;
 
 				const valDefault = MiscUtil.getDot(this._defaultEntity, keyPath);
 				if (valEntity === valDefault) return;
