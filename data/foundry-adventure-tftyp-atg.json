@@ -1,7 +1,7 @@
 {
 	"map": [
 		{
-			"name": "Map 6.1: Hill Giant Stronghold—Upper Level",
+			"name": "Map 6.1: Hill Giant Stronghold\u2014Upper Level",
 			"source": "TftYP-AtG",
 			"walls": [
 				{
@@ -1216,7 +1216,7 @@
 			]
 		},
 		{
-			"name": "Map 6.2: Hill Giant Stronghold—Dungeon Level",
+			"name": "Map 6.2: Hill Giant Stronghold\u2014Dungeon Level",
 			"source": "TftYP-AtG",
 			"walls": [
 				{
@@ -6192,7 +6192,7 @@
 			]
 		},
 		{
-			"name": "Map 6.3: Frost Giant Stronghold—Upper Level",
+			"name": "Map 6.3: Frost Giant Stronghold\u2014Upper Level",
 			"source": "TftYP-AtG",
 			"walls": [
 				{
@@ -11362,7 +11362,7 @@
 			]
 		},
 		{
-			"name": "Map 6.4: Frost Giant Stronghold—Lower Level",
+			"name": "Map 6.4: Frost Giant Stronghold\u2014Lower Level",
 			"source": "TftYP-AtG",
 			"walls": [
 				{
@@ -14604,7 +14604,7 @@
 			]
 		},
 		{
-			"name": "Map 6.5: Hall of the Fire Giant King—Entrance Level",
+			"name": "Map 6.5: Hall of the Fire Giant King\u2014Entrance Level",
 			"source": "TftYP-AtG",
 			"walls": [
 				{
@@ -20649,7 +20649,7 @@
 			]
 		},
 		{
-			"name": "Map 6.6: Hall of the Fire Giant King—Second Level",
+			"name": "Map 6.6: Hall of the Fire Giant King\u2014Second Level",
 			"source": "TftYP-AtG",
 			"walls": [
 				{
@@ -26855,7 +26855,7 @@
 			]
 		},
 		{
-			"name": "Map 6.7: Hall of the Fire Giant King—Third Level",
+			"name": "Map 6.7: Hall of the Fire Giant King\u2014Third Level",
 			"source": "TftYP-AtG",
 			"walls": [
 				{
