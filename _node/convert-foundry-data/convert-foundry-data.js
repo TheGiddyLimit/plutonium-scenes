@@ -349,6 +349,8 @@ class FoundryDataConverter {
 				if (!fs.existsSync(fpath)) {
 					writeJsonSync(fpath, {map: this._getSortedMapEntries(mapEntriesBySource)});
 					Um.info(this._LOG_TAG_WRITE, `Wrote ${source} map entries to "${fpath}" (${mapEntriesBySource.length} new; 0 updates)`);
+					isIndexUpdate = true;
+					indexJson[source] = fname;
 					return;
 				}
 
