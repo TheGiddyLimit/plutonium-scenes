@@ -7,7 +7,7 @@ export class Cli {
 		isRecursive;
 		source;
 		isLights;
-		type;
+		adventureBookType;
 
 		constructor (
 			params,
@@ -17,7 +17,7 @@ export class Cli {
 			this.isRecursive = params.recurse;
 			this.source = params.source;
 			this.isLights = params.lights;
-			this.type = params.type;
+			this.adventureBookType = params.type;
 		}
 	};
 
@@ -28,8 +28,7 @@ export class Cli {
 			.option("-R, --recurse", `If the directories should be recursively searched.`)
 			.addOption(
 				new Option("--type <type>")
-					.choices(["adventure", "book"])
-					.makeOptionMandatory(),
+					.choices(["adventure", "book"]),
 			)
 			.option("--source <file>", `5etools source (e.g. "LMoP"). This may be omitted when using a Plutonium-imported scene.`)
 			.option("--lights", `Additionally convert lights data.`)
