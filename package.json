@@ -7,10 +7,11 @@
 	"scripts": {
 		"test": "npm run test:js && npm run test:data",
 		"lint": "npm run lint:js",
-		"test:js": "eslint .eslintrc.cjs _node macro --ext .js,.cjs,.mjs",
+		"test:js": "eslint .eslintrc.cjs _node packs --ext .js,.cjs,.mjs",
 		"lint:js": "npm run test:js -- --fix",
 		"test:data": "node test/test-json.js",
 		"convert": "node _node/convert-foundry-data/convert-foundry-data.js",
+		"build-module": "node _node/build-module/build.js",
 		"serve:dev": "http-server -c-1 --cors --port 5002"
 	},
 	"author": "TheGiddyLimit",
@@ -27,6 +28,7 @@
 		"5etools-utils": "^0.10.31",
 		"commander": "^12.0.0",
 		"eslint": "^8.57.0",
-		"http-server": "^14.1.1"
+		"http-server": "^14.1.1",
+		"plutonium-utils": "^0.2.0"
 	}
 }
