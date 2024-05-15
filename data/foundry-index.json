@@ -1,4 +1,5 @@
 {
+	"AATM": "foundry-book-aatm.json",
 	"BGDIA": "foundry-adventure-bgdia.json",
 	"CM": "foundry-adventure-cm.json",
 	"CoS": "foundry-adventure-cos.json",
@@ -10,6 +11,7 @@
 	"HoL": "foundry-adventure-hol.json",
 	"HotDQ": "foundry-adventure-hotdq.json",
 	"IDRotF": "foundry-adventure-idrotf.json",
+	"KftGV": "foundry-adventure-kftgv.json",
 	"LMoP": "foundry-adventure-lmop.json",
 	"LoX": "foundry-adventure-lox.json",
 	"OotA": "foundry-adventure-oota.json",
@@ -18,6 +20,7 @@
 	"PotA": "foundry-adventure-pota.json",
 	"RMBRE": "foundry-adventure-rmbre.json",
 	"SDW": "foundry-adventure-sdw.json",
+	"SjA": "foundry-adventure-sja.json",
 	"SLW": "foundry-adventure-slw.json",
 	"TftYP-AtG": "foundry-adventure-tftyp-atg.json",
 	"TftYP-DiT": "foundry-adventure-tftyp-dit.json",
