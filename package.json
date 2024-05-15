@@ -1,6 +1,6 @@
 {
 	"name": "plutonium-scenes",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Scene data for Plutonium",
 	"type": "module",
 	"private": true,
