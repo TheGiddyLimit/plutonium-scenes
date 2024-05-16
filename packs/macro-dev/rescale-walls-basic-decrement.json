@@ -1,0 +1,8 @@
+{
+	"_id": "eEmmj0BmY7B8tfzc",
+	"name": "Rescale Walls - Basic - Decrement",
+	"type": "script",
+	"img": "icons/svg/downgrade.svg",
+	"scope": "global",
+	"folder": null
+}
