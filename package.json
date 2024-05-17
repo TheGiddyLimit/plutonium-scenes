@@ -12,7 +12,8 @@
 		"test:data": "node test/test-json.js",
 		"convert": "node _node/convert-foundry-data/convert-foundry-data.js",
 		"build-module": "node _node/build-module/build.js",
-		"serve:dev": "http-server -c-1 --cors --port 5002"
+		"serve:dev": "http-server -c-1 --cors --port 5002",
+		"preversion": "npm t"
 	},
 	"author": "TheGiddyLimit",
 	"license": "MIT",
