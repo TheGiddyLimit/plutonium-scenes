@@ -1,0 +1,8 @@
+{
+	"_id": "MltPopNCQry4kSjw",
+	"name": "Rescale Walls - Basic - Increment",
+	"type": "script",
+	"img": "icons/svg/upgrade.svg",
+	"scope": "global",
+	"folder": null
+}
