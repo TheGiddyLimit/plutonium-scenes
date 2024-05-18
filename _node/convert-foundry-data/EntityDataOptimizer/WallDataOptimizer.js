@@ -25,9 +25,31 @@ export class WallDataOptimizer extends EntityDataOptimizer {
 
 	_ignoredKeyPaths = [
 		"flags.ambientdoors",
+		"flags.elevatedvision",
+		"flags.LocknKey",
 		"flags.monks-active-tiles",
 		"flags.smartdoors",
 		"flags.wall-height",
 		"flags.wallHeight",
+
+		// region https://foundryvtt.com/packages/perceptive
+		"flags.perceptive",
+
+		"flags.canbeLockpeekedFlag",
+		"flags.DoorHingePositionFlag",
+		"flags.DoorMovementFlag",
+		"flags.DoormovingWallIDFlag",
+		"flags.DoorSwingRangeFlag",
+		"flags.DoorSlideSpeedFlag",
+		"flags.DoorSlideStateFlag",
+		"flags.DoorSwingSpeedFlag",
+		"flags.DoorSwingStateFlag",
+		"flags.LockpeekedbyFlag",
+		"flags.LockPeekingWallIDsFlag",
+		"flags.LockPeekPositionFlag",
+		"flags.LockPeekSizeFlag",
+		"flags.PeekingDCFlag",
+		"flags.PreventNormalOpenFlag",
+		// endregion
 	];
 }
