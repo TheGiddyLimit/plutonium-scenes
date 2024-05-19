@@ -23,17 +23,17 @@ export class JsonWriter {
 			mapEntryMetas
 				.reduce(
 					(all, mapEntryMeta) => {
-						(all[`${mapEntryMeta.mapEntry.source}__${mapEntryMeta.adventureBookType}`] ||= []).push(mapEntryMeta);
+						(all[mapEntryMeta.mapEntry.source] ||= []).push(mapEntryMeta);
 						return all;
 					},
 					{},
 				),
 		)
 			.forEach(([, mapEntryMetasGrouped]) => {
-				const [{mapEntry: {source}, adventureBookType}] = mapEntryMetasGrouped;
+				const [{mapEntry: {source}}] = mapEntryMetasGrouped;
 				const mapEntriesGrouped = mapEntryMetasGrouped.map(({mapEntry}) => mapEntry);
 
-				const fname = `foundry-${adventureBookType}-${source.toLowerCase()}.json`;
+				const fname = `foundry-maps-${source.toLowerCase()}.json`;
 				const fpath = `data/${fname}`;
 
 				if (!fs.existsSync(fpath)) {

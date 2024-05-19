@@ -8,8 +8,7 @@ function main () {
 			dirSchema: "test/schema",
 			fnGetSchemaId: path => {
 				if (path.endsWith("foundry-index.json")) return "foundry-index.json";
-				if (path.includes("foundry-adventure")) return "foundry-adventure-star.json"
-				if (path.includes("foundry-book")) return "foundry-book-star.json";
+				if (path.includes("foundry-maps-")) return "foundry-maps-star.json";
 				throw new Error("Unimplemented!");
 			},
 		},
