@@ -28,7 +28,6 @@ class FoundryDataConverter {
 				lightDataOptimizer,
 				scene: json,
 				source: params.source,
-				adventureBookType: params.adventureBookType,
 				isLights: params.isLights,
 			}));
 
@@ -56,27 +55,11 @@ class FoundryDataConverter {
 			});
 	}
 
-	static _getSceneAdventureBookType ({scene}) {
-		const fromTypeFlag = scene.flags?.["plutonium"]?.["adventureBookType"];
-		if (fromTypeFlag) return fromTypeFlag;
-
-		const flagDedupeId = scene.flags?.["plutonium"]?.["dedupeKey"];
-		if (!flagDedupeId) return null;
-
-		const mAdventureBook = /^(?<type>adventure|book)/.exec(flagDedupeId);
-		if (!mAdventureBook) return null;
-
-		return mAdventureBook.groups.type;
-	}
-
-	static _getMapEntryMeta ({wallDataOptimizer, lightDataOptimizer, scene, source = null, adventureBookType = null, isLights = false}) {
+	static _getMapEntryMeta ({wallDataOptimizer, lightDataOptimizer, scene, source = null, isLights = false}) {
 		if (!scene?.name) throw new Error(`Scene ${this._getSceneLogName(scene)} had no name!`);
 
 		source ||= scene.flags?.["plutonium"]?.["source"];
 		if (!source) throw new Error(`Source was neither provided as an argument, nor in scene flags for scene ${this._getSceneLogName(scene)}!`);
-
-		adventureBookType ||= this._getSceneAdventureBookType({scene, adventureBookType});
-		if (!adventureBookType) throw new Error(`Source was neither provided as an argument, nor in scene flags for scene ${this._getSceneLogName(scene)}!`);
 
 		if (!scene.walls?.length) throw new Error(`Scene ${this._getSceneLogName(scene)} had no walls!`);
 
@@ -93,7 +76,6 @@ class FoundryDataConverter {
 
 		return {
 			mapEntry,
-			adventureBookType,
 		};
 	}
 }

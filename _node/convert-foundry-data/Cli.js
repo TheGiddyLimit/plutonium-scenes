@@ -1,4 +1,4 @@
-import {Command, Option} from "commander";
+import {Command} from "commander";
 
 export class Cli {
 	static _Params = class {
@@ -7,7 +7,6 @@ export class Cli {
 		isRecursive;
 		source;
 		isLights;
-		adventureBookType;
 
 		constructor (
 			params,
@@ -17,7 +16,6 @@ export class Cli {
 			this.isRecursive = params.recurse;
 			this.source = params.source;
 			this.isLights = params.lights;
-			this.adventureBookType = params.type;
 		}
 	};
 
@@ -26,10 +24,6 @@ export class Cli {
 			.option("--file <file>", `Path to exported Foundry "fvtt-Scene-*.json" file.`)
 			.option("--dir <dir>", `Path to a directory containing exported Foundry "fvtt-Scene-*.json" file.`)
 			.option("-R, --recurse", `If the directories should be recursively searched.`)
-			.addOption(
-				new Option("--type <type>")
-					.choices(["adventure", "book"]),
-			)
 			.option("--source <file>", `5etools source (e.g. "LMoP"). This may be omitted when using a Plutonium-imported scene.`)
 			.option("--lights", `Additionally convert lights data.`)
 		;

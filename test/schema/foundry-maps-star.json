@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "foundry-book-star.json",
-	"version": "1.0.1",
+	"$id": "foundry-maps-star.json",
+	"version": "1.0.0",
 
 	"type": "object",
 
@@ -9,8 +9,8 @@
 		"$schema": {
 			"type": "string",
 			"enum": [
-				"../test/schema/foundry-book-star.json",
-				"https://raw.githubusercontent.com/TheGiddyLimit/plutonium-scenes/main/test/schema/foundry-book-star.json"
+				"../test/schema/foundry-maps-star.json",
+				"https://raw.githubusercontent.com/TheGiddyLimit/plutonium-scenes/main/test/schema/foundry-maps-star.json"
 			]
 		},
 		"map": {"$ref": "shared.json#/$defs/mapArray"}

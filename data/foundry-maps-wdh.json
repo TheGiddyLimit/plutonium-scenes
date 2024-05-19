@@ -1,5 +1,5 @@
 {
-	"$schema": "../test/schema/foundry-adventure-star.json",
+	"$schema": "../test/schema/foundry-maps-star.json",
 	"map": [
 		{
 			"name": "Alley",
