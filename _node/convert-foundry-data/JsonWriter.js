@@ -18,6 +18,7 @@ export class JsonWriter {
 		let isIndexUpdate = false;
 		const fpathIndex = `data/foundry-index.json`;
 		const indexJson = readJsonSync(fpathIndex);
+		const optsWrite = {isClean: true};
 
 		Object.entries(
 			mapEntryMetas
@@ -37,7 +38,7 @@ export class JsonWriter {
 				const fpath = `data/${fname}`;
 
 				if (!fs.existsSync(fpath)) {
-					writeJsonSync(fpath, {map: this._getSortedMapEntries(mapEntriesGrouped)});
+					writeJsonSync(fpath, {map: this._getSortedMapEntries(mapEntriesGrouped)}, optsWrite);
 					Um.info(this._LOG_TAG_WRITE, `Wrote ${source} map entries to "${fpath}" (${mapEntriesGrouped.length} new; 0 updates)`);
 					isIndexUpdate = true;
 					indexJson[source] = fname;
@@ -59,7 +60,7 @@ export class JsonWriter {
 					],
 				);
 
-				writeJsonSync(fpath, json, {isClean: true});
+				writeJsonSync(fpath, json, optsWrite);
 
 				Um.info(this._LOG_TAG_WRITE, `Wrote ${source} map entries to "${fpath}" (${mapEntriesGrouped.length - cntUpdated} new; ${cntUpdated} update${cntUpdated === 1 ? "" : "s"})`);
 
@@ -75,7 +76,7 @@ export class JsonWriter {
 		Object.entries(indexJson)
 			.sort(([a], [b]) => a.localeCompare(b, {sensitivity: "base"}))
 			.forEach(([source, fname]) => indexJsonOut[source] = fname);
-		writeJsonSync(fpathIndex, indexJsonOut, {isClean: true});
+		writeJsonSync(fpathIndex, indexJsonOut, optsWrite);
 		Um.info(this._LOG_TAG_WRITE, `Updated index`);
 	}
 }
