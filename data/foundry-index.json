@@ -16,9 +16,9 @@
 	"DMG": "foundry-maps-dmg.json",
 	"DoSI": "foundry-maps-dosi.json",
 	"DSotDQ": "foundry-maps-dsotdq.json",
-	"FS": "foundry-maps-fs.json",
 	"EFR": "foundry-maps-efr.json",
 	"ERLW": "foundry-maps-erlw.json",
+	"FS": "foundry-maps-fs.json",
 	"FTD": "foundry-maps-ftd.json",
 	"GHLoE": "foundry-maps-ghloe.json",
 	"GoS": "foundry-maps-gos.json",
@@ -69,6 +69,7 @@
 	"ToR": "foundry-maps-tor.json",
 	"TTP": "foundry-maps-ttp.json",
 	"US": "foundry-maps-us.json",
+	"VEoR": "foundry-maps-veor.json",
 	"WBtW": "foundry-maps-wbtw.json",
 	"WDH": "foundry-maps-wdh.json",
 	"WDMM": "foundry-maps-wdmm.json"
