@@ -85,5 +85,6 @@
 	"VGM": "foundry-maps-vgm.json",
 	"WBtW": "foundry-maps-wbtw.json",
 	"WDH": "foundry-maps-wdh.json",
-	"WDMM": "foundry-maps-wdmm.json"
+	"WDMM": "foundry-maps-wdmm.json",
+	"XDMG": "foundry-maps-xdmg.json"
 }
