@@ -1,6 +1,8 @@
 import {EntityDataOptimizer} from "./EntityDataOptimizer.js";
 
 export class LightDataOptimizer extends EntityDataOptimizer {
+	// See:
+	// `CONFIG.AmbientLight.documentClass.schema.getInitialValue()`
 	_defaultEntity = {
 		"rotation": 0,
 		"walls": true,

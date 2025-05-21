@@ -1,6 +1,8 @@
 import {EntityDataOptimizer} from "./EntityDataOptimizer.js";
 
 export class WallDataOptimizer extends EntityDataOptimizer {
+	// See:
+	// `CONFIG.Wall.documentClass.schema.getInitialValue()`
 	_defaultEntity = {
 		"light": 20,
 		"move": 20,
