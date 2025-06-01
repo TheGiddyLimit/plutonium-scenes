@@ -2,7 +2,7 @@ import * as fs from "fs";
 
 import {Um, JsonTester} from "5etools-utils";
 
-function main () {
+async function pMain () {
 	const tester = new JsonTester(
 		{
 			dirSchema: "test/schema",
@@ -13,6 +13,7 @@ function main () {
 			},
 		},
 	);
+	await tester.pInit();
 
 	const {errors, errorsFull} = tester.getErrors("data");
 
@@ -25,4 +26,4 @@ function main () {
 	if (!errors.length) Um.info("JSON", `Schema test passed.`);
 }
 
-main();
+await pMain();
