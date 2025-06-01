@@ -7,6 +7,7 @@ export class Cli {
 		isRecursive;
 		source;
 		isLights;
+		isRegions;
 
 		constructor (
 			params,
@@ -16,7 +17,10 @@ export class Cli {
 			this.isRecursive = params.recurse;
 			this.source = params.source;
 			this.isLights = params.lights;
+			this.isRegions = params.regions;
 		}
+
+		isRequireWalls () { return !this.isLights && !this.isRegions; }
 	};
 
 	static getParams () {
@@ -26,6 +30,7 @@ export class Cli {
 			.option("-R, --recurse", `If the directories should be recursively searched.`)
 			.option("--source <file>", `5etools source (e.g. "LMoP"). This may be omitted when using a Plutonium-imported scene.`)
 			.option("--lights", `Additionally convert lights data.`)
+			.option("--regions", `Additionally convert scene region data.`)
 		;
 
 		program.parse(process.argv);

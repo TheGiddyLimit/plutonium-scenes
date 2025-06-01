@@ -1,9 +1,19 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"$id": "shared.json",
-	"version": "1.1.1",
+	"version": "1.2.0",
 
 	"$defs": {
+		"_elevationObj": {
+			"type": "object",
+			"properties": {
+				"top": {"type": ["number"]},
+				"bottom": {"type": ["number"]}
+			},
+			"minProperties": 1,
+			"additionalProperties": false
+		},
+
 		"wall": {
 			"type": "object",
 
@@ -31,7 +41,7 @@
 						"light": {"type": "number"},
 						"sight": {"type": "number"},
 						"sound": {"type": "number"},
-						"attenuation": {"type": "boolean"}
+						"attenuation": {"const": true}
 					}
 				}
 			},
@@ -55,9 +65,9 @@
 
 				"rotation": {"type": "number"},
 
-				"walls": {"type": "boolean"},
-				"vision": {"type": "boolean"},
-				"hidden": {"type": "boolean"},
+				"walls": {"const": false},
+				"vision": {"const": true},
+				"hidden": {"const": true},
 
 				"config": {
 					"type": "object",
@@ -83,7 +93,7 @@
 								"type": {"type": ["string", "null"]},
 								"speed": {"type": "number"},
 								"intensity": {"type": "number"},
-								"reverse": {"type": "boolean"}
+								"reverse": {"const": true}
 							},
 
 							"additionalProperties": false,
@@ -118,6 +128,111 @@
 			"uniqueItems": true
 		},
 
+		"_regionShape": {
+			"oneOf": [
+				{
+					"type": "object",
+					"properties": {
+						"type": {"const": "rectangle"},
+						"x": {"type": "number"},
+						"y": {"type": "number"},
+						"width": {"type": "number"},
+						"height": {"type": "number"},
+						"rotation": {"type": "number"},
+						"hole": {"const": true}
+					},
+					"required": ["type", "x", "y", "width", "height"],
+					"additionalProperties": false
+				},
+
+				{
+					"type": "object",
+					"properties": {
+						"type": {"const": "ellipse"},
+						"x": {"type": "number"},
+						"y": {"type": "number"},
+						"radiusX": {"type": "number"},
+						"radiusY": {"type": "number"},
+						"rotation": {"type": "number"},
+						"hole": {"const": true}
+					},
+					"required": ["type", "x", "y", "radiusX", "radiusY"],
+					"additionalProperties": false
+				},
+
+				{
+					"type": "object",
+					"properties": {
+						"type": {"const": "polygon"},
+						"points": {
+							"type": "array",
+							"items": {"type": "number"},
+							"minItems": 1
+						},
+						"hole": {"const": true}
+					},
+					"required": ["type", "points"],
+					"additionalProperties": false
+				}
+			]
+		},
+
+		"_regionBehavior": {
+			"type": "object",
+
+			"properties": {
+				"name": {"type": "string"},
+				"type": {"type": "string"},
+				"disabled": {"const": true},
+
+				"system": {
+					"type": "object",
+					"minProperties": 1
+				}
+			},
+
+			"required": ["type"],
+
+			"additionalProperties": false
+		},
+
+		"region": {
+			"type": "object",
+
+			"properties": {
+				"name": {"type": "string"},
+				"color": {"type": "string", "minLength": 7, "maxLength": 7},
+				"visibility": {"type": "number"},
+				"locked": {"const": true},
+
+				"elevation": {"$ref": "#/$defs/_elevationObj"},
+
+				"shapes": {
+					"type": "array",
+					"items": {"$ref": "#/$defs/_regionShape"},
+					"minItems": 1,
+					"uniqueItems": true
+				},
+
+				"behaviors": {
+					"type": "array",
+					"items": {"$ref": "#/$defs/_regionBehavior"},
+					"minItems": 1,
+					"uniqueItems": true
+				}
+			},
+
+			"additionalProperties": false,
+			"minProperties": 1
+		},
+
+		"regionArray": {
+			"type": "array",
+			"items": {"$ref": "#/$defs/region"},
+			"minItems": 1,
+			"uniqueItems": true
+		},
+
 		"map": {
 			"type": "object",
 
@@ -125,7 +240,8 @@
 				"name": {"type": "string"},
 				"source": {"type": "string"},
 				"walls": {"$ref": "#/$defs/wallArray"},
-				"lights": {"$ref": "#/$defs/lightArray"}
+				"lights": {"$ref": "#/$defs/lightArray"},
+				"regions": {"$ref": "#/$defs/regionArray"}
 			},
 
 			"required": ["name", "source"],

@@ -1,6 +1,6 @@
-import {EntityDataOptimizer} from "./EntityDataOptimizer.js";
+import {EntityDataOptimizerSimpleBase} from "./EntityDataOptimizerBase.js";
 
-export class LightDataOptimizer extends EntityDataOptimizer {
+export class LightDataOptimizer extends EntityDataOptimizerSimpleBase {
 	// See:
 	// `CONFIG.AmbientLight.documentClass.schema.getInitialValue()`
 	_defaultEntity = {

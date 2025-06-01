@@ -1,6 +1,6 @@
-import {EntityDataOptimizer} from "./EntityDataOptimizer.js";
+import {EntityDataOptimizerSimpleBase} from "./EntityDataOptimizerBase.js";
 
-export class WallDataOptimizer extends EntityDataOptimizer {
+export class WallDataOptimizer extends EntityDataOptimizerSimpleBase {
 	// See:
 	// `CONFIG.Wall.documentClass.schema.getInitialValue()`
 	_defaultEntity = {

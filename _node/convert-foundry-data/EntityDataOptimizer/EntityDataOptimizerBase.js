@@ -1,9 +1,29 @@
 import {MiscUtil} from "../../MiscUtil.js";
 
 /** @abstract */
-export class EntityDataOptimizer {
+export class EntityDataOptimizerBase {
+	/**
+	 * @abstract
+	 * @param entity
+	 * @return {?object}
+	 */
+	getOptimizedEntity (entity) {
+		throw new Error("Unimplemented!");
+	}
+
+	/**
+	 * @abstract
+	 * @return void
+	 */
+	doLogWarnings () {
+		throw new Error("Unimplemented!");
+	}
+}
+
+/** @abstract */
+export class EntityDataOptimizerSimpleBase extends EntityDataOptimizerBase {
 	_defaultEntity;
-	_requiredKeyPaths;
+	_requiredKeyPaths = [];
 	_ignoredKeyPaths = [];
 
 	_keyPathsUnknown = new Set();
@@ -17,6 +37,7 @@ export class EntityDataOptimizer {
 
 		[
 			"_id",
+			"_stats",
 			...this._requiredKeyPaths,
 			...this._ignoredKeyPaths,
 		].forEach(keyPath => MiscUtil.deleteDot(entity, keyPath));
@@ -43,6 +64,8 @@ export class EntityDataOptimizer {
 			keyPathsUnknown.map(keyPath => keyPath)
 				.forEach(keyPath => this._keyPathsUnknown.add(keyPath));
 		}
+
+		if (!Object.keys(out).length) return null;
 
 		return out;
 	}

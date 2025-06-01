@@ -40,9 +40,7 @@ export class MiscUtil {
 		const recurse = (obj, stack) => {
 			if (obj == null) return out.push(stack.join("."));
 
-			if (typeof obj === "object") {
-				if (obj instanceof Array) throw new Error("Unimplemented!");
-
+			if (typeof obj === "object" && !(obj instanceof Array)) {
 				Object.entries(obj)
 					.forEach(([k, v]) => {
 						stack.push(k);
