@@ -18,6 +18,7 @@ export class WallDataOptimizer extends EntityDataOptimizer {
 			"attenuation": false,
 		},
 		"doorSound": null,
+		"animation": null,
 		"flags": {},
 	};
 

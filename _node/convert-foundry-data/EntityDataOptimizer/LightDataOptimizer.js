@@ -4,12 +4,16 @@ export class LightDataOptimizer extends EntityDataOptimizer {
 	// See:
 	// `CONFIG.AmbientLight.documentClass.schema.getInitialValue()`
 	_defaultEntity = {
+		"elevation": 0,
 		"rotation": 0,
 		"walls": true,
 		"vision": false,
 		"config": {
+			"negative": false,
+			"priority": 0,
 			"alpha": 0.5,
 			"angle": 360,
+			"color": null,
 			"coloration": 1,
 			"attenuation": 0.5,
 			"luminosity": 0.5,
