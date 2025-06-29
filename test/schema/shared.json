@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"$id": "shared.json",
-	"version": "1.2.0",
+	"version": "1.2.1",
 
 	"$defs": {
 		"_elevationObj": {
@@ -43,7 +43,26 @@
 						"sound": {"type": "number"},
 						"attenuation": {"const": true}
 					}
+				},
+
+				"animation": {
+					"type": [
+						"object",
+						"null"
+					],
+
+					"properties": {
+						"type": {"type": ["string", "null"]},
+						"texture": {"type": ["string", "null"]},
+						"flip": {"type": ["boolean", "null"]},
+						"double": {"type": "boolean"},
+						"direction": {"type": ["integer", "null"], "enum": [1,-1]},
+						"duration": {"type": ["integer", "null"]},
+						"strength": {"type": ["number", "null"]}
+					},
+					"additionalProperties": false
 				}
+
 			},
 
 			"additionalProperties": false
