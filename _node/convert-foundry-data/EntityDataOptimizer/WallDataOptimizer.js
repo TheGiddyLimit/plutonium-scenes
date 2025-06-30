@@ -1,4 +1,5 @@
 import {EntityDataOptimizerSimpleBase} from "./EntityDataOptimizerBase.js";
+import {MiscUtil} from "../../MiscUtil.js";
 
 export class WallDataOptimizer extends EntityDataOptimizerSimpleBase {
 	// See:
@@ -20,6 +21,16 @@ export class WallDataOptimizer extends EntityDataOptimizerSimpleBase {
 		"doorSound": null,
 		"animation": null,
 		"flags": {},
+	};
+
+	_defaultEntity_animation = {
+		"type": "",
+		"texture": null,
+		"flip": false,
+		"double": false,
+		"direction": 1,
+		"duration": 750,
+		"strength": 1,
 	};
 
 	_requiredKeyPaths = [
@@ -55,4 +66,9 @@ export class WallDataOptimizer extends EntityDataOptimizerSimpleBase {
 		"flags.PreventNormalOpenFlag",
 		// endregion
 	];
+
+	getOptimizedEntity (entity) {
+		if (MiscUtil.equalsDeep(entity.animation, this._defaultEntity_animation)) delete entity.animation;
+		return super.getOptimizedEntity(entity);
+	}
 }

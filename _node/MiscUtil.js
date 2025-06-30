@@ -58,4 +58,23 @@ export class MiscUtil {
 
 		return out;
 	}
+
+	static equalsDeep (a, b) {
+		if (Object.is(a, b)) return true;
+
+		if (a == null || b == null) return a === b;
+
+		const toA = typeof a;
+		const toB = typeof b;
+		if (toA !== toB) return false;
+		if (toA !== "object") return a === b;
+
+		const arrA = Array.isArray(a);
+		if (arrA !== Array.isArray(b)) return false;
+
+		if (arrA) return a.length === b.length && a.every((it, ix) => this.equalsDeep(it, b[ix]));
+
+		return Object.keys(a).length === Object.keys(b).length
+			&& Object.entries(a).every(([k, v]) => this.equalsDeep(v, b[k]));
+	}
 }
