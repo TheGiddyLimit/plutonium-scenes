@@ -1,8 +1,9 @@
 {
+	"$schema": "../test/schema/foundry-maps-star.json",
 	"map": [
 		{
 			"name": "Fig. 1.2: Mokkden Caverns",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -5808,7 +5809,7 @@
 		},
 		{
 			"name": "Fig. 1.2: Mokkden Caverns (Player Version)",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -11614,7 +11615,7 @@
 		},
 		{
 			"name": "Fig. 1.3: Susan's Hut",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -11793,7 +11794,7 @@
 		},
 		{
 			"name": "Fig. 1.3: Susan's Hut (Player Version)",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -11972,7 +11973,7 @@
 		},
 		{
 			"name": "Fig. 2.2: Eliza's Emporium",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -12556,7 +12557,7 @@
 		},
 		{
 			"name": "Fig. 2.3: Bandit Camp",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -13242,7 +13243,7 @@
 		},
 		{
 			"name": "Fig. 2.3: Bandit Camp (Player Version)",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -13972,7 +13973,7 @@
 		},
 		{
 			"name": "Fig. 2.4: Inner Keep",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -15299,7 +15300,7 @@
 		},
 		{
 			"name": "Fig. 2.4: Inner Keep (Player Version)",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -16626,7 +16627,7 @@
 		},
 		{
 			"name": "Fig. 4.2: Secret Laboratory",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
@@ -17307,7 +17308,7 @@
 		},
 		{
 			"name": "Fig. 4.2: Secret Laboratory (Player Version)",
-			"source": "HWAitW",
+			"source": "HumblewoodCampaignSetting",
 			"walls": [
 				{
 					"c": [
