@@ -1,8 +1,9 @@
 {
+	"$schema": "../test/schema/foundry-maps-star.json",
 	"map": [
 		{
 			"name": "Map 1: Bone House",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -3603,7 +3604,7 @@
 		},
 		{
 			"name": "Map 10: Sardonyx Necropolis",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -4485,7 +4486,7 @@
 		},
 		{
 			"name": "Map 11: Foulest Truths",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -5060,7 +5061,7 @@
 		},
 		{
 			"name": "Map 12: The Tower of Flicker and Shadow",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -6938,7 +6939,7 @@
 		},
 		{
 			"name": "Map 13: Swamp of Fate",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -7008,7 +7009,7 @@
 		},
 		{
 			"name": "Map 14: Street Prophet",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -8841,7 +8842,7 @@
 		},
 		{
 			"name": "Map 15: Thundering Hills",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -12695,7 +12696,7 @@
 		},
 		{
 			"name": "Map 16: Stillborn",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -13859,7 +13860,7 @@
 		},
 		{
 			"name": "Map 17: Rising Sands",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -20409,7 +20410,7 @@
 		},
 		{
 			"name": "Map 18: Mayhem Crossroads",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -22730,7 +22731,7 @@
 		},
 		{
 			"name": "Map 19: Prison of Good Intent",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -22880,7 +22881,7 @@
 		},
 		{
 			"name": "Map 2: Faren's Rest",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -24858,7 +24859,7 @@
 		},
 		{
 			"name": "Map 3: Leatherhollow",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -30474,7 +30475,7 @@
 		},
 		{
 			"name": "Map 4: Apostate Temple",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -30794,7 +30795,7 @@
 		},
 		{
 			"name": "Map 5: Gloomrock Caverns",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -35872,7 +35873,7 @@
 		},
 		{
 			"name": "Map 6: Boulderwood Path",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -36351,7 +36352,7 @@
 		},
 		{
 			"name": "Map 7: Flamegrit Iron Mine",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -39509,7 +39510,7 @@
 		},
 		{
 			"name": "Map 8: Shadowsteel Citadel",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [
@@ -40298,7 +40299,7 @@
 		},
 		{
 			"name": "Map 9: Storm Sanctuary",
-			"source": "GHLoE",
+			"source": "GrimHollowLairsEtharis",
 			"walls": [
 				{
 					"c": [

@@ -1,8 +1,9 @@
 {
+	"$schema": "../test/schema/foundry-maps-star.json",
 	"map": [
 		{
 			"name": "Map 3.01: Emberwood Village Map",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -3244,7 +3245,7 @@
 		},
 		{
 			"name": "Map 4.01: Drakkenheim City Street and Sewers Map",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -6755,7 +6756,7 @@
 		},
 		{
 			"name": "Map 5.01: Black Ivory Inn",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -9845,7 +9846,7 @@
 		},
 		{
 			"name": "Map 5.02: Buckle Down Row",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -11345,7 +11346,7 @@
 		},
 		{
 			"name": "Map 5.03: Chapel of Saint Brenna",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -16495,7 +16496,7 @@
 		},
 		{
 			"name": "Map 5.04: Ratling Burrow",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -24885,7 +24886,7 @@
 		},
 		{
 			"name": "Map 5.05: Reed Manor",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -27097,7 +27098,7 @@
 		},
 		{
 			"name": "Map 5.06: Spokes Smithy",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -27460,7 +27461,7 @@
 		},
 		{
 			"name": "Map 6.01: The Gate Houses",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -32445,7 +32446,7 @@
 		},
 		{
 			"name": "Map 6.02: Cosmological Clocktower",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -37038,7 +37039,7 @@
 		},
 		{
 			"name": "Map 6.03: Kleinberg Estate",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -44836,7 +44837,7 @@
 		},
 		{
 			"name": "Map 6.04: Old Town Cistern",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -47979,7 +47980,7 @@
 		},
 		{
 			"name": "Map 6.05: Royal Grotto Tiered Garden",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -48106,7 +48107,7 @@
 		},
 		{
 			"name": "Map 6.06: Royal Grotto",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -51680,7 +51681,7 @@
 		},
 		{
 			"name": "Map 6.07: Saint Vitruvio's Cathedral",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -58631,7 +58632,7 @@
 		},
 		{
 			"name": "Map 6.08: Saint Vitruvio's Cathedral Catacombs",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -72139,7 +72140,7 @@
 		},
 		{
 			"name": "Map 7.01: Camp Dawn",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -73037,7 +73038,7 @@
 		},
 		{
 			"name": "Map 7.02: The Under Tavern",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -77351,7 +77352,7 @@
 		},
 		{
 			"name": "Map 7.03: Drakkenheim Garrison",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -79159,7 +79160,7 @@
 		},
 		{
 			"name": "Map 7.04: Saint Selina's Monastery",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -79847,7 +79848,7 @@
 		},
 		{
 			"name": "Map 8.02: Castle Drakken Towers",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -85582,7 +85583,7 @@
 		},
 		{
 			"name": "Map 8.03: Castle Drakken Main Level",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
@@ -92963,7 +92964,7 @@
 		},
 		{
 			"name": "Map 8.04: Castle Drakken Dungeon",
-			"source": "DoDk",
+			"source": "DungeonsDrakkenheim",
 			"walls": [
 				{
 					"c": [
