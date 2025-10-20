@@ -1,0 +1,8 @@
+{
+	"_id": "uIe35lXNWDNdM8QD",
+	"name": "Rotate Walls",
+	"type": "script",
+	"img": "icons/svg/portal.svg",
+	"scope": "global",
+	"folder": null
+}
