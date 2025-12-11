@@ -4,14 +4,18 @@ import {Cli} from "./Cli.js";
 import {JsonReader} from "./JsonReader.js";
 import {JsonWriter} from "./JsonWriter.js";
 import {RegionDataOptimizer} from "./EntityDataOptimizer/RegionDataOptimizer.js";
+import {IdMapper} from "./IdMapper.js";
 
 class FoundryDataConverter {
 	static run () {
 		const params = Cli.getParams();
 
+		const sceneIdMapper = new IdMapper();
+		const regionIdMapper = new IdMapper();
+
 		const wallDataOptimizer = new WallDataOptimizer();
 		const lightDataOptimizer = new LightDataOptimizer();
-		const regionDataOptimizer = new RegionDataOptimizer();
+		const regionDataOptimizer = new RegionDataOptimizer({sceneIdMapper, regionIdMapper});
 
 		const dataOptimizers = [
 			wallDataOptimizer,
@@ -25,6 +29,22 @@ class FoundryDataConverter {
 			isRecursive: !!params.isRecursive,
 		});
 
+		// Pre-populate ID lookups
+		jsons
+			.forEach(json => {
+				const sceneId = this._getSceneId(json);
+				if (!sceneId) throw new Error(`Could not determine scene ID!`);
+
+				sceneIdMapper.addMappedId({id: sceneId, name: json.name});
+
+				if (json.regions) {
+					json.regions
+						.forEach(region => {
+							regionIdMapper.addMappedId({id: region._id, name: region.name});
+						});
+				}
+			});
+
 		const mapEntryMetas = jsons
 			.map(json => this._getMapEntryMeta({
 				wallDataOptimizer,
@@ -37,10 +57,37 @@ class FoundryDataConverter {
 				isRequireWalls: params.isRequireWalls(),
 			}));
 
+		// Post-step to add `foundryId`s to any entries which require them in order
+		//   for region links to function
+		jsons
+			.forEach((json, ix) => {
+				const mappedEntryMeta = mapEntryMetas[ix];
+
+				const foundryId = sceneIdMapper.getUsedMappedId({id: this._getSceneId(json)});
+				if (foundryId) mappedEntryMeta.mapEntry.foundryId = foundryId;
+
+				if (json.regions) {
+					json.regions
+						.forEach((region, ix) => {
+							const mappedRegionMeta = mappedEntryMeta.mapEntry.regions[ix];
+							if (!mappedRegionMeta) return;
+
+							const foundryId = regionIdMapper.getUsedMappedId({id: region._id});
+							if (foundryId) mappedRegionMeta.foundryId = foundryId;
+						});
+
+					json.regions = json.regions.filter(Boolean);
+				}
+			});
+
 		JsonWriter.doWriteMapEntries({mapEntryMetas});
 
 		dataOptimizers
 			.forEach(dataOptimizer => dataOptimizer.doLogWarnings());
+	}
+
+	static _getSceneId (scene) {
+		return scene._id || scene._stats?.exportSource?.uuid?.split(".")?.at(-1);
 	}
 
 	static _getSceneLogName (scene) {
@@ -95,8 +142,7 @@ class FoundryDataConverter {
 
 		if (isRegions && scene.regions?.length) {
 			mapEntry.regions = scene.regions
-				.map(region => regionDataOptimizer.getOptimizedEntity(region))
-				.filter(Boolean);
+				.map(region => regionDataOptimizer.getOptimizedEntity({...region, _parent: scene}));
 		}
 
 		return {

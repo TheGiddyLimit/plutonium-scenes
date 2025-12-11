@@ -5596,7 +5596,20 @@
 							"width": 112.5,
 							"height": 403.125
 						}
-					]
+					],
+					"behaviors": [
+						{
+							"name": "Teleport Token",
+							"type": "teleportToken",
+							"system": {
+								"destination": {
+									"foundryIdScene": "welcomeHomemansi",
+									"foundryIdRegion": "basement"
+								}
+							}
+						}
+					],
+					"foundryId": "mainFloor"
 				},
 				{
 					"name": "Basement",
@@ -5609,9 +5622,23 @@
 							"width": 121.875,
 							"height": 281.25
 						}
-					]
+					],
+					"behaviors": [
+						{
+							"name": "Teleport Token",
+							"type": "teleportToken",
+							"system": {
+								"destination": {
+									"foundryIdScene": "welcomeHomemansi",
+									"foundryIdRegion": "mainFloor"
+								}
+							}
+						}
+					],
+					"foundryId": "basement"
 				}
-			]
+			],
+			"foundryId": "welcomeHomemansi"
 		}
 	]
 }

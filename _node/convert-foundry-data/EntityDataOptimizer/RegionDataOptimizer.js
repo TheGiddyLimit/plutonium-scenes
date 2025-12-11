@@ -41,18 +41,48 @@ class _RegionBehaviorDataOptimizer extends EntityDataOptimizerSimpleBase {
 	// `CONFIG.RegionBehavior.documentClass.schema.getInitialValue()`
 	_defaultEntity = {
 		"name": "",
-		"system": {},
+		"type": null,
+		"system": {
+			"destination": null,
+			"choice": false,
+		},
 		"disabled": false,
 		"flags": {},
 	};
+
+	constructor ({sceneIdMapper, regionIdMapper}) {
+		super();
+		this._sceneIdMapper = sceneIdMapper;
+		this._regionIdMapper = regionIdMapper;
+	}
+
+	getOptimizedEntity (entity) {
+		const out = super.getOptimizedEntity(entity);
+		if (!out) return out;
+
+		if (out.system?.destination) {
+			const mDestination = /^Scene\.(?<sceneId>[^.]+)\.Region\.(?<regionId>[^.]+)$/i.exec(out.system.destination);
+			if (!mDestination) throw new Error(`Unhandled "destination" format "${out.system.destination}"!`);
+			const {sceneId, regionId} = mDestination.groups;
+			out.system.destination = {
+				foundryIdScene: this._sceneIdMapper.getMappedId({id: sceneId, name: entity._parent._parent.name}),
+				foundryIdRegion: this._regionIdMapper.getMappedId({id: regionId, name: entity._parent.name}),
+			};
+		}
+
+		return out;
+	}
 }
 
 export class RegionDataOptimizer extends EntityDataOptimizerBase {
-	constructor () {
+	constructor ({sceneIdMapper, regionIdMapper}) {
 		super();
+		this._sceneIdMapper = sceneIdMapper;
+		this._regionIdMapper = regionIdMapper;
+
 		this._optimizerRoot = new _RegionRootDataOptimizer();
 		this._optimizerShape = new _RegionShapeDataOptimizer();
-		this._optimizerBehavior = new _RegionBehaviorDataOptimizer();
+		this._optimizerBehavior = new _RegionBehaviorDataOptimizer({sceneIdMapper, regionIdMapper});
 
 		this._optimizers = [
 			this._optimizerRoot,
@@ -71,13 +101,15 @@ export class RegionDataOptimizer extends EntityDataOptimizerBase {
 				.filter(Boolean);
 		} else delete out.shapes;
 
-		if (out.behavior?.length) {
+		if (out.behaviors?.length) {
 			out.behaviors = out.behaviors
-				.map(entSub => this._optimizerBehavior.getOptimizedEntity(entSub))
+				.map(entSub => {
+					return this._optimizerBehavior.getOptimizedEntity({...entSub, _parent: entity});
+				})
 				.filter(Boolean);
 		} else delete out.behaviors;
 
-		if (!out.shapes && !out.behavior) return null;
+		if (!out.shapes && !out.behaviors) return null;
 
 		return out;
 	}

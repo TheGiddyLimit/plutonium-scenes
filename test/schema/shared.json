@@ -1,9 +1,23 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"$id": "shared.json",
-	"version": "1.2.1",
+	"version": "1.2.2",
 
 	"$defs": {
+		"foundryId": {
+			"type": "string",
+			"minLength": 16,
+			"maxLength": 16,
+			"pattern": "^[A-Za-z0-9]+$"
+		},
+
+		"foundryIdShort": {
+			"type": "string",
+			"minLength": 1,
+			"maxLength": 16,
+			"pattern": "^[A-Za-z0-9]+$"
+		},
+
 		"_elevationObj": {
 			"type": "object",
 			"properties": {
@@ -196,6 +210,19 @@
 			]
 		},
 
+		"_regionBehaviorDestination": {
+			"type": "object",
+			"properties": {
+				"foundryIdScene": {"$ref": "#/$defs/foundryIdShort"},
+				"foundryIdRegion": {"$ref": "#/$defs/foundryIdShort"}
+			},
+			"required": [
+				"foundryIdScene",
+				"foundryIdRegion"
+			],
+			"minProperties": 1
+		},
+
 		"_regionBehavior": {
 			"type": "object",
 
@@ -206,6 +233,9 @@
 
 				"system": {
 					"type": "object",
+					"properties": {
+						"destination": {"$ref": "#/$defs/_regionBehaviorDestination"}
+					},
 					"minProperties": 1
 				}
 			},
@@ -219,6 +249,8 @@
 			"type": "object",
 
 			"properties": {
+				"foundryId": {"$ref": "#/$defs/foundryIdShort"},
+
 				"name": {"type": "string"},
 				"color": {"type": "string", "minLength": 7, "maxLength": 7},
 				"visibility": {"type": "number"},
@@ -258,6 +290,7 @@
 			"properties": {
 				"name": {"type": "string"},
 				"source": {"type": "string"},
+				"foundryId": {"$ref": "#/$defs/foundryIdShort"},
 				"walls": {"$ref": "#/$defs/wallArray"},
 				"lights": {"$ref": "#/$defs/lightArray"},
 				"regions": {"$ref": "#/$defs/regionArray"}

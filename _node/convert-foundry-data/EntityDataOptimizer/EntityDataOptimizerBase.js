@@ -45,7 +45,7 @@ export class EntityDataOptimizerSimpleBase extends EntityDataOptimizerBase {
 		const keyPathsDefault = MiscUtil.getKeyPaths(this._defaultEntity);
 		const keyPathsEntity = MiscUtil.getKeyPaths(entity);
 
-		const keyPathsUnknown = keyPathsEntity.filter(keyPath => !keyPathsDefault.includes(keyPath));
+		const keyPathsUnknown = keyPathsEntity.filter(keyPath => !keyPath.startsWith("_parent") && !keyPathsDefault.includes(keyPath));
 
 		keyPathsDefault
 			.forEach(keyPath => {
