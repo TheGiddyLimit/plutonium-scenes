@@ -1,4 +1,5 @@
 {
+	"AAG": "foundry-maps-aag.json",
 	"AATM": "foundry-maps-aatm.json",
 	"ABH": "foundry-maps-abh.json",
 	"AitFR-AVT": "foundry-maps-aitfr-avt.json",
@@ -36,6 +37,7 @@
 	"DrDe-TWoO": "foundry-maps-drde-twoo.json",
 	"DSotDQ": "foundry-maps-dsotdq.json",
 	"DungeonsDrakkenheim": "foundry-maps-dungeonsdrakkenheim.json",
+	"EFA": "foundry-maps-efa.json",
 	"EFR": "foundry-maps-efr.json",
 	"ERLW": "foundry-maps-erlw.json",
 	"FFotR": "foundry-maps-ffotr.json",
