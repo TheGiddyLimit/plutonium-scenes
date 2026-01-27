@@ -53805,6 +53805,16 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Flanaess (Hex Grid)",
+			"source": "XDMG",
+			"isIgnored": true
+		},
+		{
+			"name": "Flanaess (Hex Grid) (Player Version)",
+			"source": "XDMG",
+			"isIgnored": true
 		}
 	]
 }
