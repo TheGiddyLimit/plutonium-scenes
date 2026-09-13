@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"$id": "shared.json",
-	"version": "1.2.3",
+	"version": "1.2.4",
 
 	"$defs": {
 		"foundryId": {
@@ -75,6 +75,15 @@
 						"strength": {"type": ["number", "null"]}
 					},
 					"additionalProperties": false
+				},
+
+				"levels": {
+					"type": "array",
+
+					"items": {
+						"type": "string"
+					},
+					"uniqueItems": true
 				}
 
 			},

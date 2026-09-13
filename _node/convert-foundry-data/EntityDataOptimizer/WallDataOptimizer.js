@@ -5,6 +5,7 @@ export class WallDataOptimizer extends EntityDataOptimizerSimpleBase {
 	// See:
 	// `CONFIG.Wall.documentClass.schema.getInitialValue()`
 	_defaultEntity = {
+		"levels": null,
 		"light": 20,
 		"move": 20,
 		"sight": 20,
@@ -32,6 +33,10 @@ export class WallDataOptimizer extends EntityDataOptimizerSimpleBase {
 		"duration": 750,
 		"strength": 1,
 	};
+
+	_defaultEntity_levels = [
+		"defaultLevel0000",
+	];
 
 	_requiredKeyPaths = [
 		"c",
@@ -68,6 +73,7 @@ export class WallDataOptimizer extends EntityDataOptimizerSimpleBase {
 	];
 
 	getOptimizedEntity (entity) {
+		if (MiscUtil.equalsDeep(entity.levels, this._defaultEntity_levels)) delete entity.levels;
 		if (MiscUtil.equalsDeep(entity.animation, this._defaultEntity_animation)) delete entity.animation;
 		return super.getOptimizedEntity(entity);
 	}
