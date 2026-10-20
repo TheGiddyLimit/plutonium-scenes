@@ -4,24 +4,52 @@ class _RegionRootDataOptimizer extends EntityDataOptimizerSimpleBase {
 	// See:
 	// `CONFIG.Region.documentClass.schema.getInitialValue()`
 	_defaultEntity = {
+		"_id": null,
 		"name": "",
-		"color": "",
+		"color": "#cc5528",
 		"shapes": [],
 		"elevation": {
 			"bottom": null,
 			"top": null,
+			"topInclusive": false
+		},
+		"levels": [],
+		"restriction": {
+			"enabled": false,
+			"type": "move",
+			"priority": 0
+		},
+		"attachment": {
+			"token": null
 		},
 		"behaviors": [],
-		"visibility": 0,
+		"visibility": 4,
+		"highlightMode": "shapes",
+		"displayMeasurements": false,
+		"hidden": false,
 		"locked": false,
+		"ownership": {
+			"default": 0
+		},
 		"flags": {},
+		"_shapeConstraints": null
 	};
 }
 
 class _RegionShapeDataOptimizer extends EntityDataOptimizerSimpleBase {
+	// See:
+	// `Object.values(foundry.data.BaseShapeData.TYPES).reduce((accum, Model) => Object.assign(accum, Model.schema.getInitialValue()), {})`
 	_defaultEntity = {
-		"rotation": 0,
+		"type": "grid",
 		"hole": false,
+		"anchorX": 0,
+		"anchorY": 0,
+		"rotation": 0,
+		"gridBased": false,
+		"curvature": "round",
+		"points": [],
+		"origin": null,
+		"offsets": []
 	};
 
 	_requiredKeyPaths = [
@@ -45,7 +73,18 @@ class _RegionBehaviorDataOptimizer extends EntityDataOptimizerSimpleBase {
 		"system": {
 			// region `CONFIG.RegionBehavior.dataModels.teleportToken.schema.getInitialValue()`
 			"destinations": [],
+			"placement": "random",
+			"snap": true,
 			"choice": false,
+			"revealed": false,
+			"dialog": {
+				"revealed": null,
+				"unrevealed": null
+			},
+			"transition": {
+				"type": null,
+				"duration": 1500
+			},
 			// endregion
 		},
 		"disabled": false,
