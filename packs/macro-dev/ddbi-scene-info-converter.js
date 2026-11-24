@@ -145,7 +145,7 @@
 
 	const getSearchFilename = url => {
 		return url.split("/")
-			.last()
+			.at(-1)
 			.split(".")[0]
 			.replace(/^\d+-/, "")
 			.toLowerCase()
